@@ -1,10 +1,17 @@
+import org.dojo.Till;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.text.DecimalFormat;
+import static junit.framework.Assert.assertEquals;
 
-import static org.junit.Assert.assertEquals;
+public class Thing_Test extends Till{
 
-public class Thing_Test {
+    @Before
+    public void setup() {
+        price.put("beans", 33);
+        price.put("detergent", 128);
+
+    }
 
     @Test
     public void aHundredCentsReturnsDollar() {
@@ -39,43 +46,66 @@ public class Thing_Test {
     public void add2NamedItems(){
         addItem("beans");
         addItem("detergent");
-        assertEquals("1.61",getTotal());
+        assertEquals("1.61", getTotal());
+    }
+
+
+    @Test
+    public void changedNamedItemWithNewPrice(){
+        setPrice("beans", 69);
+        addItem("beans");
+        assertEquals("should have changed to new price", "0.69", getTotal());
     }
 
     @Test
     public void addNamedItemWithSetPrice(){
-        setPrice("beans", 69);
+        createItem("can o soup", 102);
+        addItem("can o soup");
+        assertEquals("should can o soup at", "1.02", getTotal());
+    }
+
+    @Test
+    public void check3SoupFor2(){
+        createItem("can o soup", 102);
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        assertEquals("should have 3 can o soup for the price of 2", "2.04", getTotal());
+    }
+
+    @Test
+    public void check4SoupFor2(){
+        createItem("can o soup", 102);
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        assertEquals("should have 4 can o soup for the price of 3", "3.06", getTotal());
+    }
+
+    @Test
+    public void check6SoupFor4(){
+        createItem("can o soup", 102);
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        addItem("can o soup");
+        assertEquals("should have 6 can o soup for the price of 4", "4.08", getTotal());
+    }
+
+    @Test
+    public void testPrintReceipt(){
+        createItem("beans", 66);
         addItem("beans");
-        assertEquals("0.69",getTotal());
+        assertEquals("should be a receipt", "1 * beans 0.66\n==========\nTotal 0.66", printReceipt());
     }
 
-    private void setPrice(String beans, int i) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
-
-    private void addItem(String item) {
-        if(item .equals("beans"))
-            addItem(33);
-        if(item .equals("detergent"))
-            addItem(128);
-    }
-
-
-    private void checkAddition(String expected, int... prices) {
-        for (int price : prices) {
-            addItem(price);
-        }
-        assertEquals(expected, getTotal());
-    }
-
-    private int total = 0;
-
-    private String getTotal() {
-        return new DecimalFormat("0.00").format(((float) total) / 100);
-    }
-
-    private void addItem(int v) {
-        total += v;
+    @Test
+    public void test2DetergentPrintReceipt(){
+        addItem("detergent");
+        addItem("detergent");
+        assertEquals("should be a receipt for 2 * detergent", "2 * detergent 1.28\n==========\nTotal 2.56", printReceipt());
     }
 }
