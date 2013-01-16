@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class Till {
     public int total = 0;
-    public Map<String, Integer> price = new HashMap<String, Integer>();
+    protected Map<String, Integer> price = new HashMap<String, Integer>();
+    protected Map<String, Integer> bag = new HashMap<String, Integer>();   //item to quantity
+    protected int can_o_soup_cnt = 0;
 
     public Till() {
     }
@@ -18,6 +20,18 @@ public class Till {
     }
 
     public void addItem(String item) {
+        if(bag.containsKey(item))
+            bag.put(item, bag.get(item)+1);
+        else
+            bag.put(item, 1);
+
+        if(item.equals("can o soup")) {
+            ++can_o_soup_cnt;
+            if((can_o_soup_cnt % 3) == 0) {
+                return;
+            }
+        }
+
         addItem(price.get(item));
     }
 
@@ -29,10 +43,34 @@ public class Till {
     }
 
     public String getTotal() {
-        return new DecimalFormat("0.00").format(((float) total) / 100);
+        return getDecimalFormat(total);
+    }
+
+    private String getDecimalFormat(int value)
+    {
+        return new DecimalFormat("0.00").format(((float) value) / 100);
     }
 
     public void addItem(int v) {
         total += v;
+    }
+
+    public void createItem(String s, int v) {
+        price.put(s, v);
+    }
+
+    public String printReceipt() {
+        String receipt = "";
+        for (String s : bag.keySet()) {
+            receipt+= bag.get(s);
+            receipt+=" * ";
+            receipt+=s;
+            receipt+=" ";
+            receipt+=getDecimalFormat(price.get(s));
+        }
+        receipt+="\n==========\nTotal ";
+        receipt+=getTotal();
+
+        return receipt;
     }
 }
