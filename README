@@ -1,1 +1,22 @@
-This file was created by IntelliJ IDEA (Leda) IU-123.23 for binding GitHub repository
+Stories so far:
+===============
+
+ * Add item with price
+ * Add item with name
+ * Change item price
+ * Add a can of soup to the inventory - 1.02
+ * Soup of 3 for the price of 2
+ * 4 cans of soup is 3.06
+ * 6 cans of soup is $4:08
+ * print out receipt
+ * print out more complex receipt
+
+Refactorings to be done:
+========================
+ * rename test class
+ * addItem=> scan
+ * 2 identical functions
+ * Remove duplication in tests
+ * pull "setup" into setup
+ * add multiple items
+

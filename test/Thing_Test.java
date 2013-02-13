@@ -17,7 +17,7 @@ public class Thing_Test extends Till{
     public void aHundredCentsReturnsDollar() {
         int price = 100;
 
-        addItem(price);
+        addPriceToTotal(price);
         assertEquals("1.00", getTotal());
     }
 
@@ -66,6 +66,7 @@ public class Thing_Test extends Till{
 
     @Test
     public void check3SoupFor2(){
+        addSpecial("can o soup", 3);
         createItem("can o soup", 102);
         addItem("can o soup");
         addItem("can o soup");
@@ -74,7 +75,8 @@ public class Thing_Test extends Till{
     }
 
     @Test
-    public void check4SoupFor2(){
+    public void check4SoupFor3(){
+        addSpecial("can o soup", 4);
         createItem("can o soup", 102);
         addItem("can o soup");
         addItem("can o soup");
@@ -85,6 +87,7 @@ public class Thing_Test extends Till{
 
     @Test
     public void check6SoupFor4(){
+        addSpecial("can o soup", 3);
         createItem("can o soup", 102);
         addItem("can o soup");
         addItem("can o soup");
@@ -107,5 +110,17 @@ public class Thing_Test extends Till{
         addItem("detergent");
         addItem("detergent");
         assertEquals("should be a receipt for 2 * detergent", "2 * detergent 1.28\n==========\nTotal 2.56", printReceipt());
+    }
+
+    @Test
+    public void check5BeansFor4(){
+        addSpecial("beans", 5);
+        createItem("beans", 66);
+        addItem("beans");
+        addItem("beans");
+        addItem("beans");
+        addItem("beans");
+        addItem("beans");
+        assertEquals("should have 5 beans for the price of 4", "2.64", getTotal());
     }
 }

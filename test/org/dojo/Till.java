@@ -10,9 +10,14 @@ public class Till {
     public int total = 0;
     protected Map<String, Integer> price = new HashMap<String, Integer>();
     protected Map<String, Integer> bag = new HashMap<String, Integer>();   //item to quantity
-    protected int can_o_soup_cnt = 0;
+    protected Map<String, Integer> specials = new HashMap<String, Integer>();   //item to quantity
+    protected int specialsCnt = 0;
 
     public Till() {
+    }
+
+    public void addSpecial(String item, int number) {
+        specials.put(item, number);
     }
 
     public void setPrice(String beans, int i) {
@@ -25,19 +30,20 @@ public class Till {
         else
             bag.put(item, 1);
 
-        if(item.equals("can o soup")) {
-            ++can_o_soup_cnt;
-            if((can_o_soup_cnt % 3) == 0) {
-                return;
-            }
+        if(specials.containsKey(item))
+        {
+            ++specialsCnt;
+            if(specialsCnt % specials.get(item) == 0) {
+                    return;
+                }
         }
 
-        addItem(price.get(item));
+        addPriceToTotal(price.get(item));
     }
 
     public void checkAddition(String expected, int... prices) {
         for (int price : prices) {
-            addItem(price);
+            addPriceToTotal(price);
         }
         Assert.assertEquals(expected, getTotal());
     }
@@ -51,7 +57,7 @@ public class Till {
         return new DecimalFormat("0.00").format(((float) value) / 100);
     }
 
-    public void addItem(int v) {
+    public void addPriceToTotal(int v) {
         total += v;
     }
 
