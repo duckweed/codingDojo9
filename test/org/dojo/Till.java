@@ -12,9 +12,9 @@ public class Till {
 
     protected Map<String, Integer> price = new HashMap<String, Integer>();
 
-    protected Map<String, Integer> bag = new HashMap<String, Integer>();   //item to quantity
+    protected Map<String, Integer> bag = new HashMap<String, Integer>();
 
-    protected Map<String, Integer> specials = new HashMap<String, Integer>();   //item to quantity
+    protected Map<String, Integer> specials = new HashMap<String, Integer>();
 
 
     public void addSpecial(String item, int number) {
