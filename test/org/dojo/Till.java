@@ -17,10 +17,6 @@ public class Till {
     protected Map<String, Integer> specials = new HashMap<String, Integer>();   //item to quantity
 
 
-    public Till() {
-    }
-
-
     public void addSpecial(String item, int number) {
         specials.put(item, number);
     }

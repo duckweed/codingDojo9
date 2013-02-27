@@ -75,45 +75,42 @@ public class Till_Test extends Till {
 
     @Test
     public void addNamedItemWithSetPrice() {
-        createItem(SOUP, 102);
-        addItem(SOUP);
-        assertEquals("should can o soup at", 102, getTotalInCents());
+        checkNumberOfItemsWithPriceCost(1, SOUP, 102, 102 * 1);
+    }
+
+
+    private void checkNumberOfItemsWithPriceCost(int number, String item, int price, int expectedPrice) {
+        createItem(item, price);
+        addItem(item, number);
+        assertEquals("should have " + item + " at", expectedPrice, getTotalInCents());
     }
 
 
     @Test
     public void check3SoupFor2() {
         addSpecial(SOUP, 3);
-        createItem(SOUP, 102);
-        addItem(SOUP, 3);
-        assertEquals("should have 3 can o soup for the price of 2", 102 * 2, getTotalInCents());
+        checkNumberOfItemsWithPriceCost(3, SOUP, 102, 102 * 2);
     }
 
 
     @Test
     public void check4SoupFor3() {
         addSpecial(SOUP, 4);
-        createItem(SOUP, 102);
-        addItem(SOUP, 4);
-        assertEquals("should have 4 can o soup for the price of 3", 102 * 3, getTotalInCents());
+        checkNumberOfItemsWithPriceCost(4, SOUP, 102, 102 * 3);
     }
 
 
     @Test
     public void check5BeansFor4() {
         addSpecial(BEANS, 5);
-        createItem(BEANS, 66);
-        addItem(BEANS, 5);
-        assertEquals("should have 5 beans for the price of 4", 66 * 4, getTotalInCents());
+        checkNumberOfItemsWithPriceCost(5, BEANS, 66, 66 * 4);
     }
 
 
     @Test
     public void check6SoupFor4() {
         addSpecial(SOUP, 3);
-        createItem(SOUP, 102);
-        addItem(SOUP, 6);
-        assertEquals("should have 6 can o soup for the price of 4", 102 * 4, getTotalInCents());
+        checkNumberOfItemsWithPriceCost(3, SOUP, 102, 102 * 2);
     }
 
 
