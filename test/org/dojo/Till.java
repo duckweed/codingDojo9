@@ -49,16 +49,16 @@ public class Till {
     }
 
 
-    public void checkAddition(String expected, int... prices) {
+    public void checkAddition(int expected, int... prices) {
         for (int price : prices) {
             addPriceToTotal(price);
         }
-        Assert.assertEquals(expected, getTotal());
+        Assert.assertEquals(expected, getTotalInCents());
     }
 
 
-    public String getTotal() {
-        return getDecimalFormat(total);
+    public int getTotalInCents() {
+        return total;
     }
 
 
@@ -87,7 +87,7 @@ public class Till {
             receipt += getDecimalFormat(price.get(s));
         }
         receipt += "\n==========\nTotal ";
-        receipt += getTotal();
+        receipt += getDecimalFormat(total);
 
         return receipt;
     }
